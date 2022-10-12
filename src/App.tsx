@@ -20,7 +20,7 @@ function App() {
     let final_html = []
 
     final_html.push(
-      <table>
+      <table key={"table_" + index}>
         <tbody>
           <tr>
             <td>
@@ -60,14 +60,12 @@ function App() {
 
     )
     if (can_break) {
-      final_html.push(<div className="break"></div>)
+      final_html.push(<div key={"break_" + 1} className="break"></div>)
     }
     can_break = false;
 
     return final_html
   }
-
-
 
 
   return (
