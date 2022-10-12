@@ -10,12 +10,16 @@ table {
   text-align: center;
   border-collapse: collapse;
   border: 1px solid black;
-
+  width: 100px;
 
 }
 
 tr {
   border-right: 1px solid black;
+}
+
+td {
+  font-size: 1.5rem;
 }
 
 .break {
