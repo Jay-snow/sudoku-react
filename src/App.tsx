@@ -1,21 +1,64 @@
 import './App.css';
 import React from 'react';
+import BtnAnswer from './BtnAnswer';
 
-import { useState } from 'react'
+import { useState } from 'react';
 
 function App() {
 
-  const sudoku = [[1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9]];
-
+  const sudoku = [[1, 2, null, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9]];
   const [grid, setGrid] = useState(sudoku);
 
+  const [selectedAnswer, setselectedAnswer] = useState(null);
+
+  const [answerGrid, setanswerGrid] = useState(generateAnswerGrid())
+
+
+  function generateAnswerGrid() {
+    let finalArray = [];
+    for (let i = 1; i < 10; i++) {
+      finalArray.push({
+        "number": i,
+        "active": false,
+      })
+
+    }
+    return finalArray
+  }
 
   const clickHandler = (e: any) => {
-    console.log('TEST');
-    console.log(e.target.dataset.grid.slice(0, 1));
-    let stateCopy = [...grid];
-    stateCopy[e.target.dataset.grid.slice(0, 1)][e.target.dataset.grid.slice(-1)] = 10;
-    setGrid(stateCopy);
+
+    let gridCopy = [...answerGrid]
+    // If there is no selected answer and they clicked a datachoice, assign it.
+    if (selectedAnswer == null && e.target.dataset.choice) {
+      console.log(e);
+      setselectedAnswer(e.target.dataset.choice)
+      gridCopy[e.target.dataset.choice - 1].active = true;
+      setanswerGrid(gridCopy);
+
+    }
+
+    //If there is an answer and they select a new data choice, select it.
+    if (selectedAnswer && e.target.dataset.choice) {
+      setselectedAnswer(e.target.dataset.choice)
+    }
+
+
+    if (selectedAnswer && e.target.dataset.grid) {
+      let stateCopy: any;
+      stateCopy = [...grid];
+      stateCopy[e.target.dataset.grid.slice(0, 1)][e.target.dataset.grid.slice(-1)] = selectedAnswer;
+      gridCopy[selectedAnswer - 1].active = false;
+      setanswerGrid(gridCopy);
+      setGrid(stateCopy);
+      setselectedAnswer(null);
+      e.target.classList = "gone";
+
+    }
+    // let stateCopy: any;
+    // stateCopy = [...grid];
+    // stateCopy[e.target.dataset.grid.slice(0, 1)][e.target.dataset.grid.slice(-1)] = "10";
+    // setGrid(stateCopy);
 
   }
 
@@ -33,7 +76,7 @@ function App() {
       <table key={"table_" + index}>
         <tbody>
           <tr>
-            <td data-grid={index + "0"}>
+            <td className="text-xl" data-grid={index + "0"}>
               {grid[index][0]}
             </td>
             <td data-grid={index + "1"}>
@@ -77,11 +120,16 @@ function App() {
     return final_html
   }
 
+  interface BtnProps {
+    choice: number
+  }
 
   return (
     <section onClick={clickHandler} className="App">
       {grid.map((array, index) => gridHelper(index))}
-
+      <div>
+        {answerGrid.map((answer) => <BtnAnswer key={answer.number} choice={answer.number} active={answer.active} />)}
+      </div>
     </section>
   );
 }
