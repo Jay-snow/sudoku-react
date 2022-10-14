@@ -6,27 +6,31 @@ import { useState } from 'react';
 
 function App() {
 
-  const sudoku = [[1, 2, null, 4, 5, 6, 7, 8, 9]];
+  const sudoku = generateSudoku();
   const [grid, setGrid] = useState(sudoku);
-
   const [selectedAnswer, setselectedAnswer] = useState(null);
-
   const [answerGrid, setanswerGrid] = useState(generateAnswerGrid())
+
+
+  function generateSudoku() {
+    let finalArray = [];
+    for (let i = 1; i < 10; i++) {
+      finalArray.push([1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+    }
+    return finalArray
+  }
 
   function gradeGrid() {
     let gridCopy = [...grid];
-
     //For now, look at every number in first array. It should contain every number. If it does not, do not pass go.
     let isPassing = true;
-    let count = 1;
     for (let array of gridCopy) {
-      for (let i = 1; i < array.length + 1; i++) {
+      for (let i: any = 1; i < array.length + 1; i++) {
         if (!array.includes(i)) {
           isPassing = false;
         }
-
       }
-
     }
 
     console.log({ isPassing })
@@ -76,10 +80,7 @@ function App() {
       gradeGrid()
 
     }
-    // let stateCopy: any;
-    // stateCopy = [...grid];
-    // stateCopy[e.target.dataset.grid.slice(0, 1)][e.target.dataset.grid.slice(-1)] = "10";
-    // setGrid(stateCopy);
+
 
   }
 
