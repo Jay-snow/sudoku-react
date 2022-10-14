@@ -7,17 +7,17 @@ function BtnAnswer(props: any) {
 
   const getActiveState = () => {
     if (props.active) {
-      return 'active'
+      return 'active answer'
     } else {
-      return ''
+      return 'answer'
     }
   }
 
   return (
 
-    <p className={getActiveState()} data-choice={props.choice}>
+    <span className={getActiveState()} data-choice={props.choice}>
       {props.choice}
-    </p>
+    </span>
 
   );
 }

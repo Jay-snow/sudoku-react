@@ -6,12 +6,31 @@ import { useState } from 'react';
 
 function App() {
 
-  const sudoku = [[1, 2, null, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9]];
+  const sudoku = [[1, 2, null, 4, 5, 6, 7, 8, 9]];
   const [grid, setGrid] = useState(sudoku);
 
   const [selectedAnswer, setselectedAnswer] = useState(null);
 
   const [answerGrid, setanswerGrid] = useState(generateAnswerGrid())
+
+  function gradeGrid() {
+    let gridCopy = [...grid];
+
+    //For now, look at every number in first array. It should contain every number. If it does not, do not pass go.
+    let isPassing = true;
+    let count = 1;
+    for (let array of gridCopy) {
+      for (let i = 1; i < array.length + 1; i++) {
+        if (!array.includes(i)) {
+          isPassing = false;
+        }
+
+      }
+
+    }
+
+    console.log({ isPassing })
+  }
 
 
   function generateAnswerGrid() {
@@ -32,7 +51,8 @@ function App() {
     // If there is no selected answer and they clicked a datachoice, assign it.
     if (selectedAnswer == null && e.target.dataset.choice) {
       console.log(e);
-      setselectedAnswer(e.target.dataset.choice)
+      let number: any = parseInt(e.target.dataset.choice)
+      setselectedAnswer(number)
       gridCopy[e.target.dataset.choice - 1].active = true;
       setanswerGrid(gridCopy);
 
@@ -49,10 +69,11 @@ function App() {
       stateCopy = [...grid];
       stateCopy[e.target.dataset.grid.slice(0, 1)][e.target.dataset.grid.slice(-1)] = selectedAnswer;
       gridCopy[selectedAnswer - 1].active = false;
+
       setanswerGrid(gridCopy);
       setGrid(stateCopy);
       setselectedAnswer(null);
-      e.target.classList = "gone";
+      gradeGrid()
 
     }
     // let stateCopy: any;

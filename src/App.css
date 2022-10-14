@@ -10,6 +10,10 @@
   color: red;
 }
 
+.answer {
+  border: 1px solid blue;
+}
+
 table {
   text-align: center;
   border-collapse: collapse;
