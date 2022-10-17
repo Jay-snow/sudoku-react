@@ -142,9 +142,7 @@ function App() {
     return final_html
   }
 
-  interface BtnProps {
-    choice: number
-  }
+
 
   return (
     <section onClick={clickHandler} className="App">
