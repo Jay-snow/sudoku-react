@@ -95,49 +95,78 @@ function App() {
     let final_html = []
 
     final_html.push(
-      <table key={"table_" + index}>
-        <tbody>
-          <tr>
-            <td className="text-xl" data-grid={index + "0"}>
-              {grid[index][0]}
-            </td>
-            <td data-grid={index + "1"}>
-              {grid[index][1]}
-            </td>
-            <td data-grid={index + "2"}>
-              {grid[index][2]}
-            </td>
-          </tr>
-          <tr>
-            <td data-grid={index + "3"}>
-              {grid[index][3]}
-            </td>
-            <td data-grid={index + "4"}>
-              {grid[index][4]}
-            </td>
-            <td data-grid={index + "5"}>
-              {grid[index][5]}
-            </td>
-          </tr>
-          <tr>
-            <td data-grid={index + "6"}>
-              {grid[index][6]}
-            </td>
-            <td data-grid={index + "7"}>
-              {grid[index][7]}
-            </td>
-            <td data-grid={index + "8"}>
-              {grid[index][8]}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      //  <table key={"table_" + index}>
+      //    <tbody>
+      <tr className="top-row" key={"table_" + index}>
+        <td className="first" data-grid={index + "0"}>
+          {grid[index][0]}
+        </td>
+        <td data-grid={index + "1"}>
+          {grid[index][1]}
+        </td>
+        <td data-grid={index + "2"}>
+          {grid[index][2]}
+        </td>
+        <td data-grid={index + "3"}>
+          {grid[index][3]}
+        </td>
+        <td data-grid={index + "4"}>
+          {grid[index][4]}
+        </td>
+        <td data-grid={index + "5"}>
+          {grid[index][5]}
+        </td>
+        <td data-grid={index + "6"}>
+          {grid[index][6]}
+        </td>
+        <td data-grid={index + "7"}>
+          {grid[index][7]}
+        </td>
+        <td data-grid={index + "8"}>
+          {grid[index][8]}
+        </td>
+      </tr>
+      /* <tr>
+        <td className="first" data-grid={index + "0"}>
+          {grid[index][0]}
+        </td>
+        <td data-grid={index + "1"}>
+          {grid[index][1]}
+        </td>
+        <td data-grid={index + "2"}>
+          {grid[index][2]}
+        </td>
+      </tr>
+      <tr>
+        <td data-grid={index + "3"}>
+          {grid[index][3]}
+        </td>
+        <td data-grid={index + "4"}>
+          {grid[index][4]}
+        </td>
+        <td data-grid={index + "5"}>
+          {grid[index][5]}
+        </td>
+      </tr>
+      <tr>
+        <td data-grid={index + "6"}>
+          {grid[index][6]}
+        </td>
+        <td data-grid={index + "7"}>
+          {grid[index][7]}
+        </td>
+        <td data-grid={index + "8"}>
+          {grid[index][8]}
+        </td>
+      </tr> */
+      //   </tbody>
+      // </table>
 
     )
-    if (can_break) {
-      final_html.push(<div key={"break_" + 1} className="break"></div>)
-    }
-    can_break = false;
+    // if (can_break) {
+    //   final_html.push(<div key={"break_" + 1} className="break"></div>)
+    // }
+    // can_break = false;
 
     return final_html
   }
@@ -146,7 +175,12 @@ function App() {
 
   return (
     <section onClick={clickHandler} className="App">
-      {grid.map((array, index) => gridHelper(index))}
+      <table>
+        <tbody>
+          {grid.map((array, index) => gridHelper(index))}
+        </tbody>
+      </table>
+
       <div>
         {answerGrid.map((answer) => <BtnAnswer key={answer.number} choice={answer.number} active={answer.active} />)}
       </div>
